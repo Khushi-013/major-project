@@ -1,34 +1,207 @@
-/* components/dashboards/AdvocateDashboard.css */
-.advocate-dashboard .stats-cards {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .advocate-dashboard .card {
-    flex: 1;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .advocate-dashboard .recent-requests-table,
-  .advocate-dashboard .my-cases-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-  }
-  
-  .advocate-dashboard .recent-requests-table th,
-  .advocate-dashboard .recent-requests-table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: left;
-  }
-  
-  .advocate-dashboard .hearing-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
+.advocate-dashboard {
+  padding: 20px;
+}
+
+.stats-cards {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #f1f1f1;
+  padding: 20px;
+  flex: 1;
+  margin: 0 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.prediction-section,
+.client-requests-section,
+.upcoming-hearings-section,
+.case-registration-section {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  flex: 1;
+  margin: 0 5px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.recent-requests-table,
+.case-details-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px; /* Add some space before the table */
+}
+
+.recent-requests-table th,
+.recent-requests-table td,
+.case-details-table th,
+.case-details-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.case-details-table th {
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+}
+
+.upcoming-hearings-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.upcoming-hearings-table th,
+.upcoming-hearings-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.upcoming-hearings-table th {
+  background-color: #f1f1f1;
+}
+
+.view-link {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+
+.view-link:hover {
+  color: darkblue;
+}
+
+
+.pdf-viewer {
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin-top: 16px;
+  background-color: #f9f9f9;
+}
+
+.pdf-viewer h3 {
+  margin-bottom: 16px;
+}
+
+.pdf-viewer button {
+  margin-top: 12px;
+  padding: 8px 12px;
+}
+
+
+.advocate-dashboard {
+  padding: 20px;
+}
+
+.advocate-dashboard h2 {
+  margin-bottom: 20px;
+}
+
+.advocate-dashboard form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+}
+
+.advocate-dashboard form input {
+  margin-bottom: 10px;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.advocate-dashboard form button {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.case-details-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.case-details-table th, .case-details-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.case-details-table th {
+  background-color: #f4f4f4;
+}
+
+.case-details-table button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+}
+
+.advocate-dashboard {
+  padding: 20px;
+}
+
+.case-details-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.case-details-table th, .case-details-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.case-details {
+  margin-top: 10px;
+}
+
+.charts-section {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-around;
+}
