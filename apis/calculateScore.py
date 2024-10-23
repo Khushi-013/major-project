@@ -82,3 +82,11 @@ def complexity_score(category, sub_category):
         score = 5
             
     return score
+
+def case_complex(complexity_score):
+    if complexity_score <= 4:
+        return 'Low'
+    elif complexity_score <= 7:
+        return 'Medium'
+    else:
+        return 'High'
