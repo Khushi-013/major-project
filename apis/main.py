@@ -95,6 +95,22 @@ async def case_res(case_id: Annotated[int, Form()], case_filing_date: Annotated[
     return {"Complexity: ": case_complexity,
             "Timeline : ": timeline}
 
+  
+@app.get("/case_information/")
+async def get_case_data():
+    sql_select_query = "SELECT * FROM case_info"
+    records = Read(sql_select_query)
+    
+    # Display the retrieved records
+    for row in records:
+        print(f"Case ID: {row[0]}, Filing Date: {row[1]}, Case Type: {row[2]}, "
+              f"Category: {row[3]}, Filed Case Type: {row[4]}, "
+              f"DV Case: {row[5]}, Laws Applied: {row[6]}, "
+              f"Timeline: {row[7]}, Complexity Score: {row[8]}, "
+              f"Complexity: {row[9]}, Status: {row[10]}, Parties_involved: {row[13]}, "
+              f"Disposition Date: {row[11]}, Disposition Status: {row[12]}")
+              
+    return records
 
 """
 @app.post("/upload-pdf/")

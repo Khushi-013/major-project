@@ -96,7 +96,8 @@ def Read(query):
         if ans:
             return ans
         else: 
-            return 11
+            return None
+
     except Exception as e:
         print(e)
 

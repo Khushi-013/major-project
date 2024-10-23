@@ -1,0 +1,117 @@
+.cases-container {
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cases-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.cases-table th,
+.cases-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.cases-table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.cases-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    padding: 10px;
+    margin-right: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 300px;
+}
+
+.search-bar button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #0056b3;
+}
+
+.case-details {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.case-details p {
+    margin: 5px 0;
+}
+
+.close-button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    background-color: #c82333;
+}
+
+.actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.action-button {
+    margin-right: 10px;
+    padding: 10px 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    flex: 1; /* Allow buttons to take equal space */
+    margin: 0 5px; /* Add horizontal spacing between buttons */
+}
+
+.action-button:hover {
+    background-color: #218838;
+}
+
+.view-button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.view-button:hover {
+    background-color: #0056b3;
+}

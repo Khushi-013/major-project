@@ -6,6 +6,7 @@ import Login from './screens/Login';
 import RegistrationPage from './screens/RegistrationPage';
 import Dashboard from './screens/Dashboard';
 import ForgotPassword from './screens/ForgotPassword';
+import CasesPage from './screens/CasesPage';
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -31,6 +32,7 @@ function App() {
             <Route path="/register" element={<RegistrationPage />} /> {/* Corrected: Use <Route> instead of <Router> */}
             <Route path ="/dashboard" element={<Dashboard/>} />
             <Route path = "/forgot-password" element={<ForgotPassword/>} />
+            <Route path = "/cases" element={<CasesPage/>} />
           </Routes>
         )}
       </div>

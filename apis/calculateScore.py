@@ -1,25 +1,36 @@
 criminal_cases_complexity = {
-    "Murder": 10,
-    "Assault": 6,
-    "Rape & Sexual Assault": 9,
-    "Robbery": 7,
-    "Kidnapping & False Imprisonment": 8,
-    "Theft": 5,
-    "Burglary": 6,
-    "Arson": 7,
-    "Vandalism": 4,
-    "Possession": 5,
-    "Trafficking": 8,
-    "Manufacturing": 7,
-    "Fraud": 8,
-    "Embezzlement": 7,
-    "Money Laundering": 9,
-    "Bribery": 7,
-    "Corruption": 9,
-    "Public Order Crimes": 4,
-    "Traffic Violations": 3,
-    "Weapons Offenses": 6,
-    "Cybercrime": 8
+    "Assault and Battery": 7,
+    "Robbery": 8,
+    "Willful Homicide (Att.)": 9,
+    "Willful Homicide": 10,
+    "Kidnapping": 9,
+    "Forcible Rape": 9,
+    "Burglary": 7,
+    "Theft": 6,
+    "Motor Vehicle Theft": 7,
+    "Vandalism": 5,
+    "Arson": 8,
+    "Hit-and-Run": 6,
+    "Trespassing": 5,
+    "Forgery, Checks, Access Cards": 7,
+    "Malicious Mischief": 6,
+    "Narcotics": 8,
+    "Marijuana": 7,
+    "Other Sex Law Violations": 8,
+    "DUI": 6,
+    "Disorderly Conduct": 4,
+    "Indecent Exposure": 5,
+    "Disturbing Peace": 4,
+    "Lewd Conduct": 5,
+    "Escape": 6,
+    "Liquor Laws": 4,
+    "Failure to Appear/Non-Traffic": 5,
+    "Annoy/Molest Children": 7,
+    "Unlawful Sexual Intercourse": 7,
+    "Contributing Delinquency of Minor": 6,
+    "Selected Traffic": 4,
+    "Gambling": 5,
+    "Bookmaking": 6
 }
 
 civil_cases_complexity = {
@@ -84,9 +95,10 @@ def complexity_score(category, sub_category):
     return score
 
 def case_complex(complexity_score):
-    if complexity_score <= 4:
+
+    if complexity_score <= 5:
         return 'Low'
-    elif complexity_score <= 7:
+    elif complexity_score <= 10:
         return 'Medium'
     else:
         return 'High'
