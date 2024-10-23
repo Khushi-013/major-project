@@ -95,7 +95,7 @@ async def case_res(case_id: Annotated[int, Form()], case_filing_date: Annotated[
     return {"Complexity: ": case_complexity,
             "Timeline : ": timeline}
 
-
+  
 @app.get("/case_information/")
 async def get_case_data():
     sql_select_query = "SELECT * FROM case_info"
