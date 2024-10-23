@@ -40,6 +40,22 @@ def convert_to_binary_data(file: UploadFile):
     return file.file.read()
 """
 
+@app.get("/")
+async def dashboard():
+    establish_connection()
+    civil = Read(""" SELECT Count(*) FROM case_info where case_type = 'Civil' """)
+    establish_connection()
+    criminal = Read(""" SELECT Count(*) FROM case_info where case_type = 'Criminal' """)
+    establish_connection()
+    family = Read(""" SELECT Count(*) FROM case_info where case_type = 'Family' """)
+
+    return {
+        'CIVIL' : civil[0],
+        'CRIMINAL' : criminal[0],
+        'FAMILY' : family[0]
+    }
+
+
 @app.post("/case_resistration/")
 async def case_res(case_id: Annotated[int, Form()], case_filing_date: Annotated[str, Form()], case_type: Annotated[str, Form()], 
                     case_category: Annotated[str, Form()],filed_case_type: Annotated[str, Form()], dv_case: Annotated[str, Form()], 
@@ -95,12 +111,15 @@ async def case_res(case_id: Annotated[int, Form()], case_filing_date: Annotated[
     return {"Complexity: ": case_complexity,
             "Timeline : ": timeline}
 
-  
+
 @app.get("/case_information/")
 async def get_case_data():
     sql_select_query = "SELECT * FROM case_info"
+
+    establish_connection()
     records = Read(sql_select_query)
-    
+
+    print(records)
     # Display the retrieved records
     for row in records:
         print(f"Case ID: {row[0]}, Filing Date: {row[1]}, Case Type: {row[2]}, "
