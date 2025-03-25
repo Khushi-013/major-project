@@ -1,0 +1,63 @@
+1. Machine Learning Model for Timeline Prediction  
+A supervised learning approach using the Random Forest algorithm is employed to predict case resolution timelines. The model is trained on a dataset obtained from Kaggle, which contains 65,224 rows and 14 features representing various case attributes. Key features, and a newly derived feature were identified as significant predictors. The dataset was pre-processed to handle missing values and normalize inputs, and it was split into training and testing sets in an 80:20 ratio. The Random Forest algorithm was chosen for its robustness in handling large datasets and its ability to model complex relationships among features. The model achieved an accuracy of 80.09%, providing reliable predictions of case timelines. This predictive capability enables the judicial system to plan resources and set realistic expectations for case resolution.  
+required list of attributes while training the model are listed below,
+original attributes:-
+crime_type	
+dv_case	
+filed_case_type	
+case filed date
+case disposal date
+
+derived attributes:-
+number of days (case filed date - case disposal date)
+timeline (output label)
+
+some examples of model prediction are listed in table below,
+no. 	case subtype		dv-case	filed case type	actual		predicted
+
+0	Annoy/Molest Children	No	Misdemeanor	long		medium
+1	Annoy/Molest Children	Yes	Misdemeanor	medium		medium
+2	Arson			No	Felony		medium		medium
+3	Arson			No	Misdemeanor	medium		medium
+4	Weapons			Yes	Misdemeanor	medium		medium
+5	Willful Homicide	No	Felony		very_long	medium
+6	Willful Homicide	Yes	Felony		medium		medium
+7	Willful Homicide (Att.)	No	Felony		medium		medium
+8	Willful Homicide (Att.)	Yes	Felony		long		medium
+
+
+(table showing some predictions- DONE)
+---
+
+2. Case Complexity Calculation Using LLM  
+Case complexity is a crucial metric used to prioritize judicial workflows. The complexity is calculated based on three key factors: case subtype (e.g., civil disputes such as property or land disputes, or criminal cases such as robbery or murder), the number of parties involved, and the number of submitted documents and proofs. The Gemini API, an advanced large language model, is utilized to verify and analyse submitted documents. The LLM reads and interprets document content, checks for authenticity and relevance, and determines its contribution to the case. Each valid document increments the complexity score. The total complexity is computed as the sum of the scores assigned to the case subtype, the number of parties, and the verified documents. This systematic approach ensures an objective and transparent process for calculating case complexity, aiding in the prioritization of cases for judicial review. 
+
+predefined case complexity as per case subtype.
+Case Subtype		 Complexity
+		
+Assault and Battery     	6
+Robbery     			7
+Willful Homicide     		10
+Kidnapping     			8
+Forcible Rape     		9
+Theft     			5
+Annoy/Molest Children     	8
+Unlawful Sexual Intercourse     7
+Gambling     			5
+Bookmaking     			6
+
+
+EQUATION ( total complexity = complexity by case subtype + complexity by parties involved + complexity by documents submitted ) (TC = CCS + CPI + CDS )
+
+Examples of overall case complexity calculation are depicted in the table below,
+Case Subtype		      CCS	Party Involved   valid documents	Total
+					(1 per party) 	 (1 per doc)	
+	
+Robbery     			7	2 		5 			14		
+Willful Homicide     		10	2 		4 			16			
+Kidnapping     			8	3          	5 			16	 		
+Forcible Rape     		9	2 		4 			15
+Annoy/Molest Children     	8	3 		2 			13
+Gambling     			5	2 		4 			11
+
+(table showing some predictions- DONE)
