@@ -55,6 +55,7 @@ const RegistrationPage = () => {
         </div>
       )}
 
+
       {isRegistered && (
         <div className="dashboard mt-5">
           {userType === "Advocate" && <AdvocateDashboard />}
@@ -63,6 +64,7 @@ const RegistrationPage = () => {
           {userType === "Client" && <ClientDashboard />}
         </div>
       )}
+
     </div>
   );
 };

@@ -52,8 +52,8 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  flex: 1;
-  margin: 0 5px;
+  flex: 1 1;
+  margin: 650px 5px;
 }
 
 button:hover {

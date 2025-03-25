@@ -55,6 +55,23 @@ async def dashboard():
         'FAMILY' : family[0]
     }
 
+@app.get("/civil/")
+async def civil():
+    establish_connection()
+    civil_cases = Read(""" SELECT * FROM case_info where case_type = 'Civil' ORDER BY case_complexity_score DESC """)
+    return civil_cases
+
+@app.get("/criminal/")
+async def criminal():
+    establish_connection()
+    criminal_cases = Read(""" SELECT * FROM case_info where case_type = 'Criminal' ORDER BY case_complexity_score DESC """)
+    return criminal_cases
+
+@app.get("/family/")
+async def family():
+    establish_connection()
+    family_cases = Read(""" SELECT * FROM case_info where case_type = 'Family' ORDER BY case_complexity_score DESC """)
+    return family_cases
 
 @app.post("/case_resistration/")
 async def case_res(case_id: Annotated[int, Form()], case_filing_date: Annotated[str, Form()], case_type: Annotated[str, Form()], 
@@ -108,7 +125,8 @@ async def case_res(case_id: Annotated[int, Form()], case_filing_date: Annotated[
     insert_case_proofs(case_id, petition_complaint_binary, plaintiffs_proof_binary)
 
 
-    return {"Complexity: ": case_complexity,
+    return {"Complexity Score: ": case_complexity_score,
+            "Complexity: ": case_complexity,
             "Timeline : ": timeline}
 
 
@@ -121,13 +139,6 @@ async def get_case_data():
 
     print(records)
     # Display the retrieved records
-    for row in records:
-        print(f"Case ID: {row[0]}, Filing Date: {row[1]}, Case Type: {row[2]}, "
-              f"Category: {row[3]}, Filed Case Type: {row[4]}, "
-              f"DV Case: {row[5]}, Laws Applied: {row[6]}, "
-              f"Timeline: {row[7]}, Complexity Score: {row[8]}, "
-              f"Complexity: {row[9]}, Status: {row[10]}, Parties_involved: {row[13]}, "
-              f"Disposition Date: {row[11]}, Disposition Status: {row[12]}")
               
     return records
 
