@@ -17,29 +17,6 @@ target_encoder = joblib.load('models/target_encoder.pkl')
 
 app = FastAPI()
 
-"""
-@app.post("/login/")    #IGNORE 
-async def login(username: Annotated[str, Form()], password: Annotated[str, Form()]):
-    #verify the user date from database
-    return {"username": "user Found"}
-
-
-
-@app.post("/resister/") #IGNORE 
-async def resistration(userType: Annotated[str, Form()], name: Annotated[str, Form()], 
-                        password: Annotated[str, Form()], email_id: Annotated[str, Form()], 
-                        mo_no: Annotated[int, Form()],
-                        profile_photo: UploadFile = File(...), ):
-    #add data in database
-    return {"None": None}
-
-
-#IGNORE 
-def convert_to_binary_data(file: UploadFile):
-    #Converts uploaded file to binary data
-    return file.file.read()
-"""
-
 @app.get("/")
 async def dashboard():
     establish_connection()
@@ -141,24 +118,6 @@ async def get_case_data():
     # Display the retrieved records
               
     return records
-
-"""
-@app.post("/upload-pdf/")
-async def read_pdf(
-    filename: Annotated[str, Form()], file: UploadFile = File(...)
-):
-    try:
-        # Read the PDF file content as bytes
-        contents = await file.read()
-        pdf_file = io.BytesIO(contents)
-
-        clean_text = get_text_from_pdf(pdf_file)
-
-        return {"text": clean_text}
-    except Exception as e:
-        return {"error": str(e)}
-"""
-
 
 if __name__ == '__main__':
 
