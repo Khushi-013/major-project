@@ -1,265 +1,167 @@
-import React, { useState } from 'react';
-import './AdvocateDashboard.css';
-import Chart from 'react-apexcharts';
+import React, { useState } from "react";
+import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import "./AdvocateDashboard.css";
 
-const AdvocateDashboard = () => {
-  const [caseId, setCaseId] = useState('');
-  const [caseFilingDate, setCaseFilingDate] = useState('');
-  const [caseType, setCaseType] = useState('');
-  const [caseCategory, setCaseCategory] = useState('');
-  const [filedCaseType, setFiledCaseType] = useState('');
-  const [dvCase, setDvCase] = useState('');
-  const [lawsApplied, setLawsApplied] = useState('');
-  const [partiesInvolved, setPartiesInvolved] = useState('');
-  const [relevantDoc, setRelevantDoc] = useState(null); // For relevant document upload
-  const [otherProofs, setOtherProofs] = useState(null); // For other proofs upload
-  const [registeredCases, setRegisteredCases] = useState([]);
-  const [expandedCaseId, setExpandedCaseId] = useState(null);
-  
-  // Function to register a new case
-  const handleRegisterCase = (e) => {
+const CaseManagement = () => {
+  const [cases, setCases] = useState([]);
+  const [caseId, setCaseId] = useState(101);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [expandedCase, setExpandedCase] = useState(null);
+  const [caseData, setCaseData] = useState({
+    filingDate: "",
+    caseType: "Civil",
+    category: "",
+    filedCaseType: "",
+    dvCase: "No",
+    lawApplied: "",
+    numParties: "",
+  });
+
+  const predictTimeline = (complexity) => {
+    if (complexity <= 5) return "Short";
+    if (complexity <= 15) return "Medium";
+    return "Long";
+  };
+
+  const handleChange = (e) => {
+    setCaseData({ ...caseData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    const complexityScore = Math.floor(Math.random() * 100); // Automatically calculate complexity score
-    const timeline = 'To be fetched'; // Placeholder for timeline
+    const predictedComplexity = Math.floor(Math.random() * 20) + 1;
+    const predictedTimeline = predictTimeline(predictedComplexity);
 
     const newCase = {
       caseId,
-      caseFilingDate,
-      caseType,
-      caseCategory,
-      filedCaseType,
-      dvCase,
-      lawsApplied,
-      partiesInvolved,
-      relevantDoc,
-      otherProofs,
-      complexityScore,
-      timeline, // Placeholder for timeline
+      ...caseData,
+      timeline: predictedTimeline,
+      complexity: predictedComplexity,
+      pdfFile: selectedFile ? selectedFile.name : "No File",
     };
 
-    // Add new case to the state
-    setRegisteredCases((prevCases) => [...prevCases, newCase]);
-
-    // Reset form fields after submission
-    resetForm();
+    setCases([...cases, newCase]);
+    setCaseId(caseId + 1);
+    setSelectedFile(null);
+    setCaseData({
+      filingDate: "",
+      caseType: "Civil",
+      category: "",
+      filedCaseType: "",
+      dvCase: "No",
+      lawApplied: "",
+      numParties: "",
+    });
   };
 
-  const resetForm = () => {
-    setCaseId('');
-    setCaseFilingDate('');
-    setCaseType('');
-    setCaseCategory('');
-    setFiledCaseType('');
-    setDvCase('');
-    setLawsApplied('');
-    setPartiesInvolved('');
-    setRelevantDoc(null);
-    setOtherProofs(null);
+  const handleViewMore = (caseId) => {
+    setExpandedCase(expandedCase === caseId ? null : caseId);
   };
 
-  // Function to display pie chart data
-  const getChartData = () => {
-    const caseTypeCounts = registeredCases.reduce((acc, caseItem) => {
-      acc[caseItem.caseType] = (acc[caseItem.caseType] || 0) + 1;
-      return acc;
-    }, {});
-
-    const labels = Object.keys(caseTypeCounts);
-    const series = Object.values(caseTypeCounts);
-    return { labels, series };
-  };
-
-  const { labels, series } = getChartData();
-
-  const handleViewClick = (caseId) => {
-    setExpandedCaseId(expandedCaseId === caseId ? null : caseId);
-  };
-
-  const handleEditClick = (caseData) => {
-    setCaseId(caseData.caseId);
-    setCaseFilingDate(caseData.caseFilingDate);
-    setCaseType(caseData.caseType);
-    setCaseCategory(caseData.caseCategory);
-    setFiledCaseType(caseData.filedCaseType);
-    setDvCase(caseData.dvCase);
-    setLawsApplied(caseData.lawsApplied);
-    setPartiesInvolved(caseData.partiesInvolved);
-    setRelevantDoc(caseData.relevantDoc);
-    setOtherProofs(caseData.otherProofs);
-    
-    setExpandedCaseId(caseData.caseId); // Expand the details for the selected case
-  };
+  const COLORS = ["#0088FE", "#00C49F"];
 
   return (
-    <div className="advocate-dashboard">
-      <h2>Advocate Dashboard</h2>
-
-      <h3>Register New Case</h3>
-      <form onSubmit={handleRegisterCase}>
-        <input
-          type="text"
-          placeholder="Enter Case ID"
-          value={caseId}
-          onChange={(e) => setCaseId(e.target.value)}
-          required
-        />
-        <input
-          type="date"
-          placeholder="Case Filing Date"
-          value={caseFilingDate}
-          onChange={(e) => setCaseFilingDate(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Case Type (e.g., Civil, Criminal)"
-          value={caseType}
-          onChange={(e) => setCaseType(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Case Category (e.g., Property, Family)"
-          value={caseCategory}
-          onChange={(e) => setCaseCategory(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Filed Case Type"
-          value={filedCaseType}
-          onChange={(e) => setFiledCaseType(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="DV Case (Yes/No)"
-          value={dvCase}
-          onChange={(e) => setDvCase(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Laws Applied (e.g., IPC 420, IPC 302)"
-          value={lawsApplied}
-          onChange={(e) => setLawsApplied(e.target.value)}
-          required
-        />
-        <input
-          type="number"
-          placeholder="Number of Parties Involved"
-          value={partiesInvolved}
-          onChange={(e) => setPartiesInvolved(e.target.value)}
-          required
-        />
-
-        <label htmlFor="relevantDocUpload">Upload Relevant Document:</label>
-        <input
-          type="file"
-          id="relevantDocUpload"
-          onChange={(e) => setRelevantDoc(e.target.files[0])}
-          accept="application/pdf"
-          required
-        />
-
-        <label htmlFor="otherProofsUpload">Upload Other Proofs:</label>
-        <input
-          type="file"
-          id="otherProofsUpload"
-          onChange={(e) => setOtherProofs(e.target.files[0])}
-          accept="application/pdf"
-        />
-
+    <div className="container">
+      <h2>📁 Case Registration & Analysis</h2>
+      <form onSubmit={handleSubmit} className="case-form">
+        <input type="date" name="filingDate" value={caseData.filingDate} onChange={handleChange} required />
+        <select name="caseType" value={caseData.caseType} onChange={handleChange} required>
+          <option value="Civil">Civil</option>
+          <option value="Criminal">Criminal</option>
+        </select>
+        <input type="text" name="category" placeholder="Category" value={caseData.category} onChange={handleChange} required />
+        <input type="text" name="filedCaseType" placeholder="Filed Case Type" value={caseData.filedCaseType} onChange={handleChange} required />
+        <select name="dvCase" value={caseData.dvCase} onChange={handleChange} required>
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+        <input type="text" name="lawApplied" placeholder="Law Applied" value={caseData.lawApplied} onChange={handleChange} required />
+        <input type="number" name="numParties" placeholder="Number of Parties" value={caseData.numParties} onChange={handleChange} required />
+        <input type="file" onChange={handleFileChange} />
         <button type="submit">Register Case</button>
       </form>
-
-      <h2>Registered Cases</h2>
-      <table className="case-details-table">
+      
+      <PieChart width={400} height={400}>
+        <Pie
+          data={[
+            { name: "Civil", value: cases.filter((c) => c.caseType === "Civil").length },
+            { name: "Criminal", value: cases.filter((c) => c.caseType === "Criminal").length },
+          ]}
+          cx="50%"
+          cy="50%"
+          outerRadius={120}
+          fill="#8884d8"
+          dataKey="value"
+          nameKey="name"
+        >
+          {COLORS.map((color, index) => (
+            <Cell key={`cell-${index}`} fill={color} />
+          ))}
+        </Pie>
+        <Tooltip />
+        <Legend />
+      </PieChart>
+      
+      <h3>📌 Registered Cases</h3>
+      <table className="case-table">
         <thead>
           <tr>
             <th>Case ID</th>
-            <th>Case Filing Date</th>
-            <th>Case Type</th>
-            <th>Case Category</th>
-            <th>Complexity Score</th>
+            <th>Filing Date</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Filed Case Type</th>
+            <th>DV Case</th>
+            <th>Law Applied</th>
+            <th>No. of Parties</th>
             <th>Timeline</th>
-            <th>Actions</th>
+            <th>Complexity</th>
+            <th>View More</th>
           </tr>
         </thead>
         <tbody>
-          {registeredCases.map((caseItem, index) => (
-            <React.Fragment key={index}>
-              <tr>
-                <td>{caseItem.caseId}</td>
-                <td>{caseItem.caseFilingDate}</td>
-                <td>{caseItem.caseType}</td>
-                <td>{caseItem.caseCategory}</td>
-                <td>{caseItem.complexityScore}</td>
-                <td>{caseItem.timeline}</td>
-                <td>
-                  <select onChange={(e) => {
-                    if (e.target.value === "view") handleViewClick(caseItem.caseId);
-                    else if (e.target.value === "edit") handleEditClick(caseItem);
-                    e.target.value = ""; // Reset selection
-                  }}>
-                    <option value="">Actions</option>
-                    <option value="view">View</option>
-                    <option value="edit">Edit</option>
-                  </select>
-                </td>
-              </tr>
-              {expandedCaseId === caseItem.caseId && (
-                <tr>
-                  <td colSpan="7">
-                    <div className="case-details">
-                      <h4>Case Details</h4>
-                      <p><strong>Case ID:</strong> {caseItem.caseId}</p>
-                      <p><strong>Case Filing Date:</strong> {caseItem.caseFilingDate}</p>
-                      <p><strong>Case Type:</strong> {caseItem.caseType}</p>
-                      <p><strong>Case Category:</strong> {caseItem.caseCategory}</p>
-                      <p><strong>Filed Case Type:</strong> {caseItem.filedCaseType}</p>
-                      <p><strong>DV Case:</strong> {caseItem.dvCase}</p>
-                      <p><strong>Laws Applied:</strong> {caseItem.lawsApplied}</p>
-                      <p><strong>Parties Involved:</strong> {caseItem.partiesInvolved}</p>
-                      <p><strong>Relevant Document:</strong> 
-                        {caseItem.relevantDoc ? (
-                          <a href={URL.createObjectURL(caseItem.relevantDoc)} target="_blank" rel="noopener noreferrer">
-                            {caseItem.relevantDoc.name}
-                          </a>
-                        ) : 'None'}
-                      </p>
-                      <p><strong>Other Proofs:</strong> 
-                        {caseItem.otherProofs ? (
-                          <a href={URL.createObjectURL(caseItem.otherProofs)} target="_blank" rel="noopener noreferrer">
-                            {caseItem.otherProofs.name}
-                          </a>
-                        ) : 'None'}
-                      </p>
-                    </div>
-                  </td>
-                </tr>
-              )}
-            </React.Fragment>
+          {cases.map((c, index) => (
+            <tr key={index}>
+              <td>{c.caseId}</td>
+              <td>{c.filingDate}</td>
+              <td>{c.caseType}</td>
+              <td>{c.category}</td>
+              <td>{c.filedCaseType}</td>
+              <td>{c.dvCase}</td>
+              <td>{c.lawApplied}</td>
+              <td>{c.numParties}</td>
+              <td>{c.timeline}</td>
+              <td>{c.complexity}</td>
+              <td>
+                <button className="view-button" onClick={() => handleViewMore(c.caseId)}>View More</button>
+              </td>
+            </tr>
           ))}
         </tbody>
       </table>
-
-      <div className="charts-section">
-      <Chart
-        options={{
-          chart: {
-            id: 'case-type-chart',
-          },
-          labels: labels, // Use the labels directly for the pie chart
-        }}
-        series={series}
-        type="pie" // Change the chart type to "pie"
-        width="500"
-      />
+      {expandedCase !== null && (
+        <div className="case-details">
+          {cases.filter(c => c.caseId === expandedCase).map(c => (
+            <div key={c.caseId}>
+              <p><strong>Case ID:</strong> {c.caseId}</p>
+              <p><strong>Filing Date:</strong> {c.filingDate}</p>
+              <p><strong>Category:</strong> {c.category}</p>
+              <p><strong>Filed Case Type:</strong> {c.filedCaseType}</p>
+              <p><strong>DV Case:</strong> {c.dvCase}</p>
+              <p><strong>Law Applied:</strong> {c.lawApplied}</p>
+              <p><strong>No. of Parties:</strong> {c.numParties}</p>
+              <p><strong>Complexity:</strong> {c.complexity}</p>
+              <p><strong>Timeline:</strong> {c.timeline}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
-  </div>
   );
 };
 
-export default AdvocateDashboard;
+export default CaseManagement;
