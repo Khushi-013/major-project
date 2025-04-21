@@ -7,6 +7,9 @@ import RegistrationPage from './screens/RegistrationPage';
 import Dashboard from './screens/Dashboard';
 import ForgotPassword from './screens/ForgotPassword';
 import CasesPage from './screens/CasesPage';
+import AboutPage from './screens/AboutPage';
+import Advocates from './screens/Advocates';
+import VideoConferencing from './screens/VideoConferencing';
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -28,11 +31,14 @@ function App() {
         ) : (
           <Routes>
             <Route path="/" element={<LandingPage />} /> {/* Show landing page after splash screen */}
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/login" element={<Login />} /> {/* Corrected: Use <Route> instead of <Router> */}
             <Route path="/register" element={<RegistrationPage />} /> {/* Corrected: Use <Route> instead of <Router> */}
             <Route path ="/dashboard" element={<Dashboard/>} />
             <Route path = "/forgot-password" element={<ForgotPassword/>} />
             <Route path = "/cases" element={<CasesPage/>} />
+            <Route path = "/advocates" element={<Advocates/>}/>
+            <Route path = "/video" element={<VideoConferencing/>}/>
           </Routes>
         )}
       </div>
