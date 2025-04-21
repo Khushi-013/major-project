@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Login.css'; // Import the CSS
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+//import Header from '../components/Header';
+//import Footer from '../components/Footer';
 
 const Login = () => {
   const [email, setEmail] = useState('');

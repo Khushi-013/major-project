@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import AdvocateRegistration from "../components/forms/AdvocateRegistration"
 import JudgeRegistration from "../components/forms/JudgeRegistration";
 import ClerkRegistration from "../components/forms/ClerkRegistration";
@@ -10,7 +10,6 @@ import JudgeDashboard from "../components/dashboards/JudgeDashboard";
 import ClerkDashboard from "../components/dashboards/ClerkDashboard";
 import ClientDashboard from "../components/dashboards/ClientDashboard";
 
-import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "../styles/RegistrationPage.css";
 
 const RegistrationPage = () => {
